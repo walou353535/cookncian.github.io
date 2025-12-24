@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cook'n'Cian - Recettes de Cuisine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blanc: #DBE2E8;
+            --gris: #88959F;
+            --vert: #00C38A;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--blanc);
+            line-height: 1.6;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--vert);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .cook {
+            color: var(--vert);
+        }
+
+        .logo-text .apostrophe {
+            color: var(--gris);
+        }
+
+        .logo-text .cian {
+            color: var(--vert);
+        }
+
+        .navbar {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--vert);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--blanc);
+            border-radius: 25px;
+            padding: 10px 18px;
+            border: 1px solid var(--gris);
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: var(--text-dark);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--gris);
+        }
+
+        .search-icon {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            color: var(--gris);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/9d515c0f-7677-4ac2-be6c-5c468e3c5303') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            font-weight: 300;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            max-width: 700px;
+        }
+
+        /* MAIN CONTAINER */
+        main {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        /* RECETTE DE LA SEMAINE */
+        .recette-semaine {
+            background-color: #fff;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 100px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 0;
+            align-items: stretch;
+        }
+
+        .recette-image {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            min-height: 450px;
+        }
+
+        .recette-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .recette-content {
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #f5f8fb;
+        }
+
+        .recette-label {
+            color: var(--vert);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .recette-semaine h2 {
+            font-size: 38px;
+            font-weight: 600;
+            color: var(--vert);
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .recette-date {
+            font-size: 13px;
+            color: var(--gris);
+            font-weight: 400;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .recette-category {
+            display: inline-block;
+            background-color: var(--vert);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            width: fit-content;
+        }
+
+        .recette-content p {
+            font-size: 15px;
+            color: var(--text-dark);
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        /* SECTION RECHERCHE */
+        .search-section {
+            background: linear-gradient(135deg, rgba(219, 226, 232, 0.9) 0%, rgba(240, 244, 247, 0.9) 100%),
+                        url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/27a4acad-b49a-43dc-ae0f-89e8a13baf77') center/cover;
+            background-blend-mode: overlay;
+            border-radius: 0;
+            padding: 70px 40px;
+            text-align: center;
+            margin-bottom: 100px;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-section-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .search-section h2 {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-section p {
+            font-size: 16px;
+            color: var(--gris);
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 12px;
+            max-width: 550px;
+            margin: 0 auto;
+            align-items: stretch;
+        }
+
+        .search-input-group input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--vert);
+            border-radius: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .search-input-group input:focus {
+            outline: none;
+            border-color: var(--vert);
+            background-color: #fff;
+        }
+
+        .search-input-group button {
+            padding: 14px 35px;
+            background-color: var(--vert);
+            color: white;
+            border: none;
+            border-radius: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .search-input-group button:hover {
+            background-color: #00a876;
+        }
+
+        /* RECETTES PAR THEMES */
+        .themes-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: var(--gris);
+            text-align: center;
+            margin-bottom: 55px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .theme-card {
+            background-color: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-card-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--vert) 0%, #00a876 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            color: white;
+        }
+
+        .theme-card-content {
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .theme-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--gris);
+            color: white;
+            padding: 50px 20px 30px;
+            margin-top: 100px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 60px;
+            margin-bottom: 35px;
+            align-items: flex-start;
+        }
+
+        .footer-logo {
+            text-align: left;
+        }
+
+        .footer-logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--vert);
+        }
+
+        .footer-section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--vert);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .footer-contact {
+            font-size: 13px;
+            opacity: 0.95;
+        }
+
+        .footer-contact p {
+            margin-bottom: 8px;
+        }
+
+        .footer-contact a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: var(--vert);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--vert);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .navbar {
+                display: none;
+            }
+
+            .search-bar {
+                width: 200px;
+            }
+
+            .themes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            main {
+                margin: 60px auto;
+            }
+
+            .recette-semaine {
+                grid-template-columns: 1fr;
+            }
+
+            .recette-image {
+                min-height: 350px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                gap: 15px;
+            }
+
+            .search-bar {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .recette-content {
+                padding: 35px 25px;
+            }
+
+            .recette-semaine h2 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .themes-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .theme-card-image {
+                height: 180px;
+                font-size: 42px;
+            }
+
+            .search-section {
+                padding: 50px 25px;
+            }
+
+            main {
+                margin: 50px auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .search-bar {
+                width: 100%;
+                order: 3;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 26px;
+                margin-bottom: 15px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+
+            .recette-semaine {
+                margin-bottom: 60px;
+            }
+
+            .recette-content {
+                padding: 25px 18px;
+            }
+
+            .recette-semaine h2 {
+                font-size: 24px;
+            }
+
+            .recette-date {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+                margin-bottom: 35px;
+            }
+
+            .themes-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .theme-card-image {
+                height: 160px;
+                font-size: 40px;
+            }
+
+            .search-section {
+                padding: 40px 20px;
+                margin-bottom: 60px;
+            }
+
+            .search-input-group {
+                flex-direction: column;
+            }
+
+            .search-input-group button {
+                width: 100%;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-bottom: 25px;
+            }
+
+            .section-subtitle {
+                font-size: 13px;
+            }
+
+            main {
+                margin: 40px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-text">
+                    <span class="cook">COOK</span><span class="apostrophe">&#39;</span><span class="cian">CIAN</span>
+                </span>
+            </a>
+            <nav class="navbar">
+                <a href="#" class="nav-link">Accueil</a>
+                <a href="#" class="nav-link">Recette de la semaine</a>
+                <a href="#" class="nav-link">Chercher une recette</a>
+                <a href="#" class="nav-link">Thèmes</a>
+                <a href="#" class="nav-link">Trucs & astuces</a>
+            </nav>
+            <div class="search-bar">
+                <input type="text" placeholder="Cherchez une recette...">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>De l'apprenti cuisinier au chef étoilé</h1>
+            <p>Recherchez parmi plus de 200 recettes de cuisine illustrées en photo ou en vidéo</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- RECETTE DE LA SEMAINE -->
+        <section class="recette-semaine">
+            <div class="recette-image">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/488c1c2e-33ba-4712-b7f7-4c343f34d273" alt="Potimarron farçi">
+            </div>
+            <div class="recette-content">
+                <div class="recette-label">Recette de la semaine</div>
+                <h2>Potimarron farçi</h2>
+                <div class="recette-date">recette du 15 au 21 novembre</div>
+                <div class="recette-category">Plat principal</div>
+                <p>Potimarron farçi avec un mélange de champignons, oignons et lardons, le tout lié avec de la crème et du gruyère râpé, une recette bien réconfortante et rassasiante...<br><br>Une recette simple et délicieuse que vous pouvez décliner selon vos goûts.</p>
+            </div>
+        </section>
+
+        <!-- SECTION RECHERCHE -->
+        <section class="search-section">
+            <div class="search-section-content">
+                <h2>Cherchez une recette</h2>
+                <p>au hasard à partir d'un ingrédient</p>
+                <div class="search-input-group">
+                    <input type="text" placeholder="ingrédient...">
+                    <button>Chercher !</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECETTES PAR THEMES -->
+        <section class="themes-section">
+            <h2 class="section-title">Recettes par thèmes</h2>
+            <p class="section-subtitle">Quelque soit votre idée, vous trouverez forcément parmi nos meilleures recettes de quoi réaliser le menu idéal !</p>
+            <div class="themes-grid">
+                <div class="theme-card">
+                    <div class="theme-card-image">🥗</div>
+                    <div class="theme-card-content">
+                        <h3>Petit déjeuner</h3>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-card-image">🍔</div>
+                    <div class="theme-card-content">
+                        <h3>Recettes végétariennes</h3>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-card-image">🍕</div>
+                    <div class="theme-card-content">
+                        <h3>Pizzas</h3>
+                    </div>
+                </div>
+                <div class="theme-card">
+                    <div class="theme-card-image">🍝</div>
+                    <div class="theme-card-content">
+                        <h3>Pâtes</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="footer-logo-text">COOK'CIAN</div>
+                <p style="font-size: 13px; opacity: 0.95; line-height: 1.8;">Découvrez plus de 200 recettes de cuisine variées et délicieuses.</p>
+            </div>
+            <div class="footer-section" style="text-align: center;">
+                <h3>Nous contacter</h3>
+                <div class="footer-contact">
+                    <p>02 96 12 34 56</p>
+                    <p>2, avenue Antoine Mazier</p>
+                    <p>22000 Saint-Brieuc</p>
+                </div>
+            </div>
+            <div class="footer-section" style="text-align: right;">
+                <h3>Suivez-nous</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5c-.563-.074-2.338-.227-4.465-.227-4.404 0-7.529 2.58-7.529 7.331v1.896z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="YouTube" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="Instagram" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="Pinterest" aria-label="Pinterest">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 19c-3.859 0-7-3.141-7-7s3.141-7 7-7 7 3.141 7 7-3.141 7-7 7zm0-12.5c-3.038 0-5.5 2.462-5.5 5.5s2.462 5.5 5.5 5.5 5.5-2.462 5.5-5.5-2.462-5.5-5.5-5.5z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Mentions légales - © 2025 Cook'n'Cian - CIAN - Saint Brieuc</p>
+        </div>
+    </footer>
+</body>
+</html>
